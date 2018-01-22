@@ -40,7 +40,7 @@ public class DrinkBot extends WeChatBot {
     private String tip1 = "现在是北京时间: %s点\n各位大佬请及时饮水, 以免猝死.";
     private String tip2 = "同志们，吃饭要积极，点饭也要准时。";
 
-    private boolean isTip;
+    private String currentTip = "";
 
     public DrinkBot(Config config) {
         super(config);
@@ -59,8 +59,8 @@ public class DrinkBot extends WeChatBot {
         while (true) {
             String time = LocalDateTime.now().format(dateTimeFormatter);
             // 还没提醒过
-            if (times.keySet().contains(time) && !isTip) {
-                isTip = true;
+            if (times.keySet().contains(time) && !currentTip.equals(time)) {
+                currentTip = time;
                 log.info("{} 又到了按时提醒的时刻", time);
                 String text = String.format(times.get(time), time);
                 log.info("向大佬们发送了一条: {}", text);
