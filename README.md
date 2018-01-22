@@ -9,8 +9,8 @@
 
 ## 机器人示例
 
-- [图灵机器人](tuling-bot)
-- [茉莉机器人](moli-bot)
+- [图灵机器人](https://github.com/biezhi/wechat-api-examples/tree/master/tuling-bot/src/main/java/me/biezhi/wechat/examples)
+- [茉莉机器人](https://github.com/biezhi/wechat-api-examples/tree/master/moli-bot/src/main/java/me/biezhi/wechat/examples)
 - [喝水机器人](https://github.com/biezhi/wechat-api-examples/tree/master/drink-bot/src/main/java/me/biezhi/wechat/examples)
 
 ## 如何打包？
@@ -22,7 +22,7 @@ cd 某个bot目录
 mvn clean assembly:assembly
 ```
 
-会在 `target` 目录下生成一个 `xxx-1.0-SNAPSHOT-jar-with-dependencies.jar`，
+会在 `target` 目录下生成一个 `xxx-1.0-jar-with-dependencies.jar`，
 在服务器上运行这个 `jar` 包即可。
 
 ## 开源协议
