@@ -1,15 +1,18 @@
 package me.biezhi.wechat.examples;
 
 import io.github.biezhi.wechat.WeChatBot;
+import io.github.biezhi.wechat.api.annotation.Bind;
 import io.github.biezhi.wechat.api.constant.Config;
+import io.github.biezhi.wechat.api.enums.AccountType;
+import io.github.biezhi.wechat.api.model.WeChatMessage;
 import io.github.biezhi.wechat.utils.DateUtils;
+import io.github.biezhi.wechat.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 /**
  * 喝水机器人
@@ -54,6 +57,22 @@ public class DrinkBot extends WeChatBot {
 
     private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
+    @Bind(accountType = AccountType.TYPE_FRIEND)
+    public void friendMsg(WeChatMessage message) {
+        log.info("收到好友 {} 的消息: {}", message.getName(), message.getText());
+        this.sendMsg(message.getFromUserName(), "自动回复: " + message.getText());
+    }
+
+    @Bind(accountType = AccountType.TYPE_GROUP)
+    public void groupMsg(WeChatMessage message) {
+        if (StringUtils.isNotEmpty(message.getName()) && message.getName().equals("蛇皮群聊小分队")) {
+            log.info("收到群 {} 的消息: {}", message.getName(), message.getText());
+            if (message.isAtMe()) {
+                this.sendMsg(message.getFromUserName(), "自动回复: " + message.getText());
+            }
+        }
+    }
+
     @Override
     protected void other() {
         while (true) {
@@ -64,17 +83,9 @@ public class DrinkBot extends WeChatBot {
                 log.info("{} 又到了按时提醒的时刻", time);
                 String text = String.format(times.get(time), time);
                 log.info("向大佬们发送了一条: {}", text);
-                this.api().sendTextByName("平均腿长175", text);
+                this.sendMsgByName("平均月薪17.5", text);
             }
-            Scanner scanner = new Scanner(System.in);
-            if (scanner.hasNext()) {
-                String text = scanner.next();
-                if ("quit".equals(text) || "exit".equals(text)) {
-                    this.api().logout();
-                    return;
-                }
-            }
-            DateUtils.sleep(500L);
+            DateUtils.sleep(100L);
         }
     }
 
