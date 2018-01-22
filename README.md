@@ -11,16 +11,19 @@
 
 - [图灵机器人](tuling-bot)
 - [茉莉机器人](moli-bot)
-- [喝水机器人](drink-bot)
+- [喝水机器人](https://github.com/biezhi/wechat-api-examples/tree/master/drink-bot/src/main/java/me/biezhi/wechat/examples)
 
 ## 如何打包？
 
 该项目基于 Java8、Maven、lombok 构建，请确保你已有该环境。
 
 ```bash
-cd 项目目录
+cd 某个bot目录
 mvn clean assembly:assembly
 ```
+
+会在 `target` 目录下生成一个 `xxx-1.0-SNAPSHOT-jar-with-dependencies.jar`，
+在服务器上运行这个 `jar` 包即可。
 
 ## 开源协议
 
